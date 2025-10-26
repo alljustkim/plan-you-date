@@ -87,6 +87,7 @@
             <h3>📱 Share your response:</h3>
             <div class="share-options">
                 <button onclick="shareToWhatsApp()" class="share-btn">WhatsApp</button>
+                <button onclick="shareToSnapchat()" class="share-btn" style="background: #fffc00; color: #000;">Snapchat</button>
                 <button onclick="shareToSMS()" class="share-btn sms">SMS</button>
                 <button onclick="copyMessage()" class="share-btn copy">Copy message</button>
             </div>
@@ -95,6 +96,7 @@
 
     <script>
         let selectedDate = '';
+        let dateDetails = '';
         let fromName = '';
         let phoneNumber = '';
 
@@ -112,7 +114,9 @@
 
         function confirmDate() {
             const datePicker = document.getElementById('datePicker');
+            const detailsInput = document.getElementById('dateDetails');
             selectedDate = datePicker.value;
+            dateDetails = detailsInput ? detailsInput.value : '';
             
             if (selectedDate) {
                 Swal.fire({
@@ -177,6 +181,40 @@
                 const smsURL = `sms:?body=${encodeURIComponent(text)}`;
                 window.location.href = smsURL;
             }
+        }
+
+        function shareToSnapchat() {
+            const formattedDate = new Date(selectedDate).toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            let text = `I can make it on ${formattedDate}! 😊\n\n`;
+            
+            // Add date details if provided
+            if (dateDetails && dateDetails.trim()) {
+                text += `Date details: ${dateDetails}\n\n`;
+            }
+            
+            if (fromName) {
+                text = `Hi ${decodeURIComponent(fromName)}! I can make it on ${formattedDate}! 😊\n\n`;
+                if (dateDetails && dateDetails.trim()) {
+                    text += `Date details: ${dateDetails}\n\n`;
+                }
+            }
+            
+            // Try to copy the message first
+            navigator.clipboard.writeText(text).then(function() {
+                // Open Snapchat with username
+                window.location.href = 'https://snapchat.com/add/alljustkim';
+                alert('Message copied! Please paste it in Snapchat');
+            }).catch(function() {
+                alert('Please copy this message manually:\n\n' + text);
+            });
         }
 
         function copyMessage() {
