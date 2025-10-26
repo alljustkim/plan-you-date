@@ -5,15 +5,15 @@ A romantic website to ask someone out on a date, with a personalized link system
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://alljustkim.github.io/plan-you-date/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## 🚀 Fonctionnalités
+## 🚀 Features
 
-### ✨ Générateur de Liens Personnalisés
-- **Page de génération** : `generate-link.html`
-- Personnalisez votre invitation avec :
-  - Votre nom
-  - Le nom de la personne
-  - Un message personnalisé
-  - Un numéro WhatsApp (optionnel)
+### ✨ Personalized Link System
+- Create custom links by adding URL parameters
+- Personalize your invitation with:
+  - Your name
+  - Their name
+  - A custom message
+  - A WhatsApp number (optional)
 
 ### 🎯 Liens Locaux
 - Génère des liens locaux du type : `index.html?from=VotreNom&to=LeurNom&msg=Message&phone=Numero`
@@ -30,19 +30,14 @@ A romantic website to ask someone out on a date, with a personalized link system
 - **SMS** : Ouverture de l'app SMS avec message pré-rempli
 - **Copie** : Copie du message dans le presse-papiers
 
-## 🛠️ Comment Utiliser
+## 🛠️ How to Use
 
-### 1. Créer un Lien Personnalisé
-1. Ouvrez `generate-link.html` dans votre navigateur
-2. Remplissez les informations :
-   - Votre nom
-   - Le nom de la personne
-   - Message personnalisé (optionnel)
-   - Numéro WhatsApp (optionnel)
-3. Cliquez sur "Générer mon lien personnalisé"
-4. Copiez ou partagez le lien généré
+### 1. Create a Personalized Link
+Add URL parameters to your site URL:
+- Format: `index.html?from=YourName&to=TheirName&msg=Message&phone=PhoneNumber`
+- Example: `https://alljustkim.github.io/plan-you-date/index.html?from=John&to=Sarah&msg=I%20would%20love%20to%20go%20out%20with%20you&phone=%2B1234567890`
 
-### 2. Partager le Lien
+### 2. Share the Link
 - **WhatsApp** : Le lien s'ouvrira directement dans WhatsApp
 - **SMS** : Copiez le lien et envoyez-le par SMS
 - **Email** : Copiez le lien et envoyez-le par email
@@ -59,13 +54,12 @@ Quand la personne clique sur votre lien :
 
 ```
 Plan-your-date-main/
-├── index.html              # Page principale (modifiée)
-├── yes.html                # Page de confirmation (modifiée)
-├── generate-link.html      # Générateur de liens (nouveau)
-├── script.js              # Script principal (modifié)
-├── styles.css             # Styles principaux
-├── yes.css                # Styles de la page yes
-└── README.md              # Ce fichier
+├── index.html              # Main page
+├── yes.html                # Confirmation page
+├── script.js               # Main script
+├── styles.css              # Main styles
+├── yes.css                 # Yes page styles
+└── README.md               # This file
 ```
 
 ## 🔧 Personnalisation
@@ -81,27 +75,25 @@ const messages = [
 ];
 ```
 
-### Modifier les Styles
-- `styles.css` : Styles de la page principale
-- `yes.css` : Styles de la page de confirmation
-- Styles inline dans `generate-link.html` pour le générateur
+### Modify Styles
+- `styles.css` : Main page styles
+- `yes.css` : Confirmation page styles
 
-### Ajouter des Fonctionnalités
-- Modifiez `generate-link.html` pour ajouter plus d'options
-- Étendez `yes.html` pour plus d'options de partage
-- Ajoutez des animations ou effets dans les fichiers CSS
+### Add Features
+- Extend `yes.html` for more sharing options
+- Add animations or effects in CSS files
 
-## 🌐 Déploiement
+## 🌐 Deployment
 
 ### Local
-1. Téléchargez tous les fichiers
-2. Ouvrez `generate-link.html` dans votre navigateur
-3. Créez vos liens et partagez-les !
+1. Download all files
+2. Open `index.html` in your browser
+3. Create your links manually by adding URL parameters
 
-### Serveur Web
-1. Uploadez tous les fichiers sur votre serveur web
-2. Accédez à votre site via `https://votresite.com/generate-link.html`
-3. Les liens générés fonctionneront avec votre domaine
+### GitHub Pages
+1. Upload all files to your GitHub repository
+2. Activate GitHub Pages in Settings
+3. Your site will be available at `https://USERNAME.github.io/REPO-NAME/`
 
 ## 💡 Exemples d'Utilisation
 
