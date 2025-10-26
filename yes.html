@@ -194,6 +194,7 @@
             });
             
             let text = `I can make it on ${formattedDate}! 😊\n\n`;
+            let snapchatLink = '\nAdd me on Snapchat: https://snapchat.com/t/kfHXcn4f';
             
             // Add date details if provided
             if (dateDetails && dateDetails.trim()) {
@@ -207,13 +208,14 @@
                 }
             }
             
-            // Try to copy the message first
-            navigator.clipboard.writeText(text).then(function() {
-                // Open Snapchat with username
-                window.location.href = 'https://snapchat.com/add/alljustkim';
-                alert('Message copied! Please paste it in Snapchat');
+            // Combine message with Snapchat link
+            const fullMessage = text + snapchatLink;
+            
+            // Try to copy the message with link
+            navigator.clipboard.writeText(fullMessage).then(function() {
+                alert('Message with your Snapchat link copied! Paste it wherever you want to share.');
             }).catch(function() {
-                alert('Please copy this message manually:\n\n' + text);
+                alert('Please copy this message manually:\n\n' + fullMessage);
             });
         }
 
