@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Can we go on a date?</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .personalized-message {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .personalized-message h2 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        
+        .personalized-message p {
+            color: #666;
+            font-style: italic;
+            margin: 0;
+        }
+        
+        .from-name {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        
+        .generate-link-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .generate-link-btn:hover {
+            background: linear-gradient(45deg, #ee5a24, #ff6b6b);
+        }
+        
+        .github-btn {
+            background: linear-gradient(45deg, #333, #555);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-left: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .github-btn:hover {
+            background: linear-gradient(45deg, #555, #333);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="personalizedMessage" class="personalized-message">
+            <h2>💌 Message from <span id="fromName"></span></h2>
+            <p id="customMessage"></p>
+        </div>
+        
+        <h1 id="mainTitle">Can we go on a date?</h1>
+        <div class="buttons">
+            <button class="yes-button" onclick="handleYesClick()">Yes</button>
+            <button class="no-button" onclick="handleNoClick()">No</button>
+        </div>
+        <div class="gif_container">
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW5lenZyZHI5OXM2eW95b3pmMG40cWVrMDhtNjVuM3A4dGNxa2g2dSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VM1fcpu2bKs1e2Kdbj/giphy.gif" alt="Cute GIF">
+        </div>
+        
+        <a href="generate-link.html" class="generate-link-btn">✨ Create my own link</a>
+        <a href="https://github.com/alljustkim/plan-your-date" class="github-btn" target="_blank">🐙 View on GitHub</a>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Function to handle URL parameters
+        function handleUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromName = urlParams.get('from');
+            const toName = urlParams.get('to');
+            const customMessage = urlParams.get('msg');
+            
+            if (fromName && toName) {
+                // Customize the title
+                document.getElementById('mainTitle').textContent = `Hi ${decodeURIComponent(toName)}, can we go on a date?`;
+                
+                // Display personalized message
+                document.getElementById('fromName').textContent = decodeURIComponent(fromName);
+                
+                if (customMessage) {
+                    document.getElementById('customMessage').textContent = decodeURIComponent(customMessage);
+                } else {
+                    document.getElementById('customMessage').textContent = `${decodeURIComponent(fromName)} would really love to spend time with you!`;
+                }
+                
+                document.getElementById('personalizedMessage').style.display = 'block';
+                
+                // Store information for the next page
+                sessionStorage.setItem('fromName', fromName);
+                sessionStorage.setItem('toName', toName);
+                sessionStorage.setItem('phoneNumber', urlParams.get('phone') || '');
+            }
+        }
+        
+        // Call the function when the page loads
+        document.addEventListener('DOMContentLoaded', handleUrlParameters);
+    </script>
+</body>
+</html>

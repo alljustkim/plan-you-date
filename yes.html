@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I knew you would say yes!</title>
+    <link rel="stylesheet" href="./yes.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+    <style>
+        .personalized-header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .personalized-header h2 {
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        
+        .personalized-header p {
+            color: #666;
+            font-style: italic;
+            margin: 0;
+        }
+        
+        .share-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .share-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .share-btn.copy {
+            background: #2196f3;
+        }
+        
+        .share-btn.sms {
+            background: #ff6b6b;
+        }
+        
+        .back-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+        
+        <div id="personalizedHeader" class="personalized-header">
+            <h2>💕 Message for <span id="fromNameDisplay"></span></h2>
+            <p id="personalizedMessage"></p>
+        </div>
+        
+        <h1 class="header_text">I knew you would say yes!</h1>
+        <div class="gif_container">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3c3l5ODh3ZGN6NHhhaDE2Mjg1ZjkwOXczdDFxbWM3dTBtaW9zaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/9XY4f3FgFTT4QlaYqa/giphy.gif">
+        </div>
+        <div id="datePickerSection">
+            <h2>So, what date are we going to make the world jealous?</h2>
+            <input type="datetime-local" id="datePicker">
+            <button onclick="confirmDate()" class="btn-confirm">Save to My Heart ❤️</button>
+        </div>
+        <div id="whatsappSection" style="display: none;">
+            <h3>📱 Share your response:</h3>
+            <div class="share-options">
+                <button onclick="shareToWhatsApp()" class="share-btn">WhatsApp</button>
+                <button onclick="shareToSMS()" class="share-btn sms">SMS</button>
+                <button onclick="copyMessage()" class="share-btn copy">Copy message</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedDate = '';
+        let fromName = '';
+        let phoneNumber = '';
+
+        // Load personalized information on startup
+        document.addEventListener('DOMContentLoaded', function() {
+            fromName = sessionStorage.getItem('fromName') || '';
+            phoneNumber = sessionStorage.getItem('phoneNumber') || '';
+            
+            if (fromName) {
+                document.getElementById('fromNameDisplay').textContent = decodeURIComponent(fromName);
+                document.getElementById('personalizedMessage').textContent = `Thank you ${decodeURIComponent(fromName)}! I said yes! 💕`;
+                document.getElementById('personalizedHeader').style.display = 'block';
+            }
+        });
+
+        function confirmDate() {
+            const datePicker = document.getElementById('datePicker');
+            selectedDate = datePicker.value;
+            
+            if (selectedDate) {
+                Swal.fire({
+                    title: 'Date saved successfully',
+                    text: 'Perfect! That day just became my favorite 💖',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+                
+                document.getElementById('datePickerSection').style.display = 'none';
+                document.getElementById('whatsappSection').style.display = 'block';
+            }
+        }
+
+        function shareToWhatsApp() {
+            const formattedDate = new Date(selectedDate).toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            let text = `I can make it on ${formattedDate}! 😊`;
+            
+            if (fromName) {
+                text = `Hi ${decodeURIComponent(fromName)}! I can make it on ${formattedDate}! 😊`;
+            }
+            
+            if (phoneNumber) {
+                const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
+                window.open(whatsappURL, '_blank');
+            } else {
+                // If no specific number, open WhatsApp without number
+                const whatsappURL = `https://wa.me/?text=${encodeURIComponent(text)}`;
+                window.open(whatsappURL, '_blank');
+            }
+        }
+
+        function shareToSMS() {
+            const formattedDate = new Date(selectedDate).toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            let text = `I can make it on ${formattedDate}! 😊`;
+            
+            if (fromName) {
+                text = `Hi ${decodeURIComponent(fromName)}! I can make it on ${formattedDate}! 😊`;
+            }
+            
+            if (phoneNumber) {
+                const smsURL = `sms:${phoneNumber}?body=${encodeURIComponent(text)}`;
+                window.location.href = smsURL;
+            } else {
+                // If no specific number, open SMS app
+                const smsURL = `sms:?body=${encodeURIComponent(text)}`;
+                window.location.href = smsURL;
+            }
+        }
+
+        function copyMessage() {
+            const formattedDate = new Date(selectedDate).toLocaleString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            let text = `I can make it on ${formattedDate}! 😊`;
+            
+            if (fromName) {
+                text = `Hi ${decodeURIComponent(fromName)}! I can make it on ${formattedDate}! 😊`;
+            }
+            
+            navigator.clipboard.writeText(text).then(function() {
+                Swal.fire({
+                    title: 'Message copied!',
+                    text: 'The message has been copied to clipboard',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(function() {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                Swal.fire({
+                    title: 'Message copied!',
+                    text: 'The message has been copied to clipboard',
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        }
+    </script>
+</body>
+</html>
