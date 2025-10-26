@@ -2,7 +2,7 @@
 
 A romantic website to ask someone out on a date, with a personalized link system for easy sharing!
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://alljustkim.github.io/plan-your-date/)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://alljustkim.github.io/plan-you-date/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## 🚀 Fonctionnalités
