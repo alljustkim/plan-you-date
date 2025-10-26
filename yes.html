@@ -84,9 +84,9 @@
             <button onclick="confirmDate()" class="btn-confirm">Save to My Heart ❤️</button>
         </div>
         <div id="whatsappSection" style="display: none;">
-            <h3>📱 Share on Snapchat:</h3>
+            <h3>📱 Share your response:</h3>
             <div class="share-options">
-                <button onclick="shareToSnapchat()" class="share-btn" style="background: #fffc00; color: #000; font-size: 18px; padding: 15px 30px;">Send on Snapchat</button>
+                <button onclick="shareToWhatsApp()" class="share-btn" style="background: #25d366; font-size: 18px; padding: 15px 30px;">Send on WhatsApp</button>
             </div>
         </div>
     </div>
@@ -140,16 +140,25 @@
             
             let text = `I can make it on ${formattedDate}! 😊`;
             
+            // Add date details if provided
+            if (dateDetails && dateDetails.trim()) {
+                text += `\n\nDate details: ${dateDetails}`;
+            }
+            
             if (fromName) {
                 text = `Hi ${decodeURIComponent(fromName)}! I can make it on ${formattedDate}! 😊`;
+                if (dateDetails && dateDetails.trim()) {
+                    text += `\n\nDate details: ${dateDetails}`;
+                }
             }
             
             if (phoneNumber) {
                 const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(text)}`;
                 window.open(whatsappURL, '_blank');
             } else {
-                // If no specific number, open WhatsApp without number
-                const whatsappURL = `https://wa.me/?text=${encodeURIComponent(text)}`;
+                // Default WhatsApp number
+                const defaultWhatsApp = '2250778698560';
+                const whatsappURL = `https://wa.me/${defaultWhatsApp}?text=${encodeURIComponent(text)}`;
                 window.open(whatsappURL, '_blank');
             }
         }
